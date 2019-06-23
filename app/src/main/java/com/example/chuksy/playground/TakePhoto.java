@@ -1,10 +1,14 @@
 package com.example.chuksy.playground;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +29,8 @@ public class TakePhoto implements View.OnClickListener {
 
     public static final int KEY_REQUEST_IMAGE_CAPTURE_CODE = 10;
 
+    public static final int KEY_READ_EXTERNAL_STORAGE_PERMISSION_CODE = 12;
+
     public TakePhoto(Activity activity){
 
         theActivity = activity;
@@ -32,6 +38,27 @@ public class TakePhoto implements View.OnClickListener {
     }
 
     String currentPhotoPath;
+
+    public static boolean getExternalDirectoryPermissions(Activity theActivity){
+
+        if (ContextCompat.checkSelfPermission(theActivity, Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_GRANTED ) {
+
+            return true;
+
+
+        } else {
+
+            ActivityCompat.requestPermissions(theActivity, new String[] {
+                            Manifest.permission.READ_EXTERNAL_STORAGE },
+                    KEY_READ_EXTERNAL_STORAGE_PERMISSION_CODE);
+
+            return (ContextCompat.checkSelfPermission(theActivity, Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_GRANTED);
+
+        }
+
+    }
 
     private File createImageFile() throws IOException {
         // Create an image file name
@@ -70,7 +97,7 @@ public class TakePhoto implements View.OnClickListener {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(theActivity,
+                Uri photoURI = FileProvider.getUriForFile(theActivity.getApplicationContext(),
                         theActivity.getPackageName(),
                         photoFile);
                 Log.d("PLAY", "THE URI ISS" + photoURI);
@@ -85,8 +112,15 @@ public class TakePhoto implements View.OnClickListener {
 
         Log.d("PLAY", "Take Photo Clicked");
 
-        dispatchTakePictureIntent();
+        if(!getExternalDirectoryPermissions(theActivity)){
 
+            Toast.makeText(theActivity, "You need to allow permissions for this", Toast.LENGTH_LONG).show();
+
+            return;
+
+        }
+
+        dispatchTakePictureIntent();
 
     }
 

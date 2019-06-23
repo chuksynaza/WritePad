@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -134,6 +136,16 @@ public class NewEntry extends AppCompatActivity implements SelectDateClickListen
 
     }
 
+    private void setPic(ImageView theImageView, String imagePath){
+
+        Bitmap theImageBitmap = BitmapFactory.decodeFile(imagePath);
+
+        theImageView.setImageBitmap(theImageBitmap);
+
+        theImageView.setVisibility(View.VISIBLE);
+
+    }
+
     void updateView(){
 
         entryTitle.setText(entry.getTitle());
@@ -161,19 +173,17 @@ public class NewEntry extends AppCompatActivity implements SelectDateClickListen
         {
             Log.d("PLAY", "Setting the entryImage " + Uri.fromFile(imgFile).toString());
 
-//            Log.d("PLAY", "Setting the entryImage New " + FileProvider.getUriForFile(this,
-//                    getPackageName(),
-//                    imgFile).toString());
+            //Checking for permissions and displaying image
 
+            if(!TakePhoto.getExternalDirectoryPermissions(this)){
 
+                Toast.makeText(getApplicationContext(), "You need to allow permissions for this", Toast.LENGTH_LONG).show();
 
-            entryImage.setImageURI(Uri.fromFile(imgFile));
+                return;
 
-//            entryImage.setImageURI(FileProvider.getUriForFile(this,
-//                    getPackageName(),
-//                    imgFile));
+            }
 
-            entryImage.setVisibility(View.VISIBLE);
+            setPic(entryImage, entryImageUrl);
 
         }
 
