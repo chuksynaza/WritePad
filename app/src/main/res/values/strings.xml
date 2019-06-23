@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">WritePad</string>
+    <string name="entryTitleHint">Title...</string>
+    <string name="entryTextHint">Write here...</string>
+    <string name="addFeeling">Add feeling</string>
+    <string name="selectFeelingTitle">Pick an emoji describing your feeling</string>
+    <string name="defaultNoEntriesMessage">When you add entries, they would appear here </string>
+    <string name="searchNoEntriesMessage">No results found, please modify search</string>
+    <string name="searchHint">Search entries...</string>
+    <string name="deleteButton">Delete</string>
+    <string name="shareButton">Share</string>
+    <string name="shareText">Share Entries</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_test_navigation">TestNavigation</string>
+</resources>

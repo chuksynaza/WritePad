@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/delete_selected"
+        android:icon="@drawable/ic_delete_black_24dp"
+        android:iconTint="@android:color/background_light"
+        android:title="@string/deleteButton"
+        android:titleCondensed="@string/deleteButton"
+        android:visible="true"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/share_selected"
+        android:icon="@drawable/ic_share_black_24dp"
+        android:iconTint="@android:color/background_light"
+        android:title="@string/shareButton"
+        app:showAsAction="never|ifRoom|withText" />
+</menu>
